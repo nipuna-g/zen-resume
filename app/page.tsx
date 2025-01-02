@@ -1,3 +1,5 @@
+import Resume from "@/app/markdown/resume.mdx";
+
 export default function Home() {
   const { name, email, phone, address, summary, skills, experience, education } = {
     name: "John Doe",
@@ -32,17 +34,19 @@ export default function Home() {
       },
     ],
   };
+
   return (
     <div className="">
       <main className="flex gap-8">
         <div className="flex flex-1 flex-col gap-4">
           <h1>Edit Resume</h1>
+          {/* TODO: use markdown with components to edit the resume */}
           <label htmlFor="name">Name</label>
           <input type="text" id="name" value={name} />
         </div>
         <div className="flex flex-1 flex-col gap-4">
           <h2>Resume</h2>
-
+          <Resume />
           {/* Profile information */}
           <div className="flex flex-col gap-4">
             <div className="flex gap-2">
@@ -70,6 +74,17 @@ export default function Home() {
               <div className="flex flex-col gap-2">
                 <span className="font-bold">{exp.company}</span>
                 <span>{exp.position}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Education */}
+          <div className="flex flex-col gap-4">
+            <h2 className="font-bold text-lg">Education</h2>
+            {education.map((edu) => (
+              <div className="flex flex-col gap-2">
+                <span className="font-bold">{edu.institution}</span>
+                <span>{edu.degree}</span>
               </div>
             ))}
           </div>
