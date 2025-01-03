@@ -1,11 +1,32 @@
-# Welcome to my MDX page!
+export const experience = [
+  {
+    company: "Tech Solutions",
+    position: "Software Engineer",
+    startDate: "2020-01-01",
+    endDate: "2021-12-31",
+    description: "Developed and maintained web applications using React and Node.js.",
+  },
+  {
+    company: "Innovative Tech",
+    position: "Frontend Developer",
+    startDate: "2019-05-01",
+    endDate: "2020-04-30",
+    description: "Worked on the development of a responsive web application using React.",
+  }
+]
 
-This is some **bold** and _italics_ text.
+export const Experience = ({experience}) => {
+  return (
+    <div>
+      {experience.map((experience) => (
+        <div>
+          <h3>{experience.company} - {experience.position}</h3>
+        </div>
+      ))}
+    </div>
+  )
+}
 
-This is a list in markdown:
 
-- One
-- Two
-- Three
+<Experience experience={experience} />
 
-Checkout my React component:
