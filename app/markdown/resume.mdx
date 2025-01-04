@@ -12,21 +12,46 @@ export const experience = [
     startDate: "2019-05-01",
     endDate: "2020-04-30",
     description: "Worked on the development of a responsive web application using React.",
-  }
-]
+  },
+];
 
-export const Experience = ({experience}) => {
+export const education = [
+  {
+    institution: "University of Technology",
+    degree: "Bachelor of Science in Computer Science",
+    startDate: "2015-09-01",
+    endDate: "2019-05-15",
+    description: "Graduated with a 3.8 GPA.",
+  },
+];
+
+export const Experience = ({ experience }) => {
   return (
     <div>
       {experience.map((experience) => (
         <div>
-          <h3>{experience.company} - {experience.position}</h3>
+          <h3>
+            {experience.company} - {experience.position}
+          </h3>
         </div>
       ))}
     </div>
-  )
-}
+  );
+};
 
+export const Education = ({ education }) => {
+  return (
+    <div>
+      {education.map((education) => (
+        <div>
+          <h3>
+            {education.institution} - {education.degree}
+          </h3>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 <Experience experience={experience} />
-
+<Education education={education} />
