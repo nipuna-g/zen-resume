@@ -7,26 +7,48 @@
       </NuxtLink>
     </div>
 
-    <div class="p-6 mx-auto max-w-3xl rounded border">
-      <div class="max-w-none prose" v-html="renderedMarkdown"></div>
+    <div class="grid grid-cols-2 gap-8">
+      <!-- Markdown Editor -->
+      <div class="p-4 rounded border">
+        <h2 class="mb-4 text-xl font-semibold">Markdown Editor</h2>
+        <textarea
+          v-model="store.resume.content"
+          class="w-full h-[600px] p-4 border rounded font-mono"
+          placeholder="Write your resume in markdown..."
+        />
+      </div>
+
+      <!-- Preview -->
+      <div class="p-4 rounded border">
+        <h2 class="mb-4 text-xl font-semibold">Preview</h2>
+        <div class="max-w-none prose prose-sm" v-html="renderedMarkdown"></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 import { marked } from "marked";
-import { useResume } from "../../composables/useResume";
-import { computed } from "vue";
+import { computed, onUnmounted } from "vue";
+import { useRoute } from "vue-router";
+import { useCollaborativeStore } from "../../composables/useCollaborativeStore";
+import * as Vue from "vue";
+import { enableVueBindings } from "@syncedstore/core";
+
+enableVueBindings(Vue);
 
 const route = useRoute();
 const resumeId = route.params.id;
 
-const { resume, fetchResume } = useResume();
-
-// Fetch on page load
-await fetchResume();
+// Initialize collaborative store
+const { store, provider } = useCollaborativeStore(resumeId);
 
 const renderedMarkdown = computed(() => {
-  return marked(resume.value?.content || "");
+  return marked(store.resume.content.toString());
+});
+
+// Cleanup WebRTC connection when component is destroyed
+onUnmounted(() => {
+  provider.disconnect();
 });
 </script>
